@@ -38,9 +38,10 @@ def download_csv_report_from_rql(query):
 def handler():
     rql="""config from cloud.resource where resource.status = Active AND cloud.type = 'aws'"""
     data=download_csv_report_from_rql(rql)
-    with open("my_data.csv", "w", encoding="utf-8", newline="\n") as csvfile:
+    with open("my_data.csv", "w", encoding="utf-8", newline="") as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow([data])
+        for line in data.splitlines():
+            writer.writerow([line])
     
 
 handler()
